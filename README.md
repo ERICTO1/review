@@ -1,20 +1,55 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Solar Install Review Application
 
-# Run and deploy your AI Studio app
+This is a React-based solar installer review application built with Vite and TypeScript.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/drive/1y6azTq7BpvjpqBABP6k714ot1waqdDWN
+- Public review form for customers
+- B-side interface for verified clients
+- C-side interface for partner links
+- Multiple installation status options:
+  - Installed
+  - Signed Contract
+  - Still Considering
+  - Did Not Proceed
 
-## Run Locally
+## GitHub Pages Setup Instructions
 
-**Prerequisites:**  Node.js
+To enable GitHub Pages for this repository:
 
+1. Go to your repository on GitHub: https://github.com/ERICTO1/review
+2. Click on the "Settings" tab
+3. Scroll down to the "Pages" section in the left sidebar
+4. Under "Source", select "Deploy from a branch"
+5. Choose "main" as the branch and "docs/" as the folder
+6. Click "Save"
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Your site will be available at: https://ericto1.github.io/review/
+
+## Local Development
+
+To run the application locally:
+
+```bash
+npm install
+npm run dev
+```
+
+Then visit http://localhost:3000
+
+## Build for Production
+
+To build the application for production:
+
+```bash
+npm run build
+```
+
+The build artifacts will be placed in the `dist` directory.
+
+## Modes
+
+The application has three modes accessible via URL parameters:
+- Public mode: `/?type=public` (default)
+- B-side mode: `/?type=b` (for verified clients)
+- C-side mode: `/?type=c` (for partner links)
