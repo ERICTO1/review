@@ -446,8 +446,8 @@ export default function App() {
               </section>
             )}
 
-            {/* Quote Only Checkbox - For public mode only (removed from B-side signed status) */}
-            {(mode === 'public' || (mode === 'b' && installStatus !== 'signed')) && (
+            {/* Quote Only Checkbox - For public mode only (removed from B-side completely) */}
+            {mode === 'public' && (
               <section className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <label className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${formData.isQuoteOnly ? 'bg-blue-50 border-blue-200 ring-1 ring-blue-100' : 'bg-white border-gray-200 hover:border-blue-300 hover:bg-gray-50'}`}>
                   <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${formData.isQuoteOnly ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-300'}`}>
