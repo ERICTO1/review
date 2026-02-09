@@ -446,8 +446,8 @@ export default function App() {
               </section>
             )}
 
-            {/* Quote Only Checkbox - For public mode and B-side (when signed, but not when installed) */}
-            {(mode === 'public' || (mode === 'b' && installStatus === 'signed')) && (
+            {/* Quote Only Checkbox - For public mode only (removed from B-side signed status) */}
+            {(mode === 'public' || (mode === 'b' && installStatus !== 'signed')) && (
               <section className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <label className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${formData.isQuoteOnly ? 'bg-blue-50 border-blue-200 ring-1 ring-blue-100' : 'bg-white border-gray-200 hover:border-blue-300 hover:bg-gray-50'}`}>
                   <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${formData.isQuoteOnly ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-300'}`}>
@@ -466,8 +466,8 @@ export default function App() {
               </section>
             )}
 
-            {/* Section 2: Rate your experience - Don't show for considering or rejected states, or for signed contracts in C mode */}
-            {!formData.isQuoteOnly && (mode === 'public' || installStatus === 'installed' || (installStatus === 'signed' && mode !== 'c')) && installStatus !== 'considering' && installStatus !== 'rejected' && (
+            {/* Section 2: Rate your experience - Don't show for considering or rejected states, or for signed contracts in C/B modes */}
+            {!formData.isQuoteOnly && (mode === 'public' || installStatus === 'installed' || (installStatus === 'signed' && mode !== 'c' && mode !== 'b')) && installStatus !== 'considering' && installStatus !== 'rejected' && (
               <section className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100">
                   <ShieldCheck className="w-6 h-6 text-blue-600" />
@@ -598,8 +598,29 @@ export default function App() {
               </section>
             )}
 
-            {/* Section 5: Component Details (Optional) - Hidden if Quote Only or considering/rejected states, or for signed contracts in C mode */}
-            {!formData.isQuoteOnly && installStatus !== 'considering' && installStatus !== 'rejected' && !(installStatus === 'signed' && mode === 'c') && (
+            {/* Section 5: Proof of Purchase - Don't show for considering or rejected states, or for signed contracts in B mode */}
+            {(mode === 'b' || !formData.isQuoteOnly) && installStatus !== 'considering' && installStatus !== 'rejected' && !(installStatus === 'signed' && mode === 'b') && (
+              <section className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transition-all duration-300">
+                <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100">
+                  <Info className="w-6 h-6 text-blue-600" />
+                  <h2 className="text-xl font-bold text-gray-800">Proof of Purchase</h2>
+                </div>
+
+                <div className="pt-4 border-t border-gray-100">
+                  <label className="block font-medium text-gray-700 mb-2">Proof of Purchase (Invoice)</label>
+                  <ImageUpload
+                    images={formData.proofOfPurchase}
+                    onChange={(files) => setFormData(prev => ({ ...prev, proofOfPurchase: files }))}
+                    maxFiles={1}
+                    label="Upload Invoice"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">Required for verified buyer badge.</p>
+                </div>
+              </section>
+            )}
+
+            {/* Section 6: Component Details (Optional) - Hidden if Quote Only or considering/rejected states, or for signed contracts in C/B modes */}
+            {!formData.isQuoteOnly && installStatus !== 'considering' && installStatus !== 'rejected' && !(installStatus === 'signed' && (mode === 'c' || mode === 'b')) && (
               <section className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-in fade-in slide-in-from-top-4 duration-500">
                 <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100">
                   <Zap className="w-6 h-6 text-amber-500" />
